@@ -1,0 +1,451 @@
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+  font-family: 'Helvetica Neue', Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  background: #f2f4f8;
+}
+
+.page {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  height: 44px;
+  background: #e8ebf0;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 12px;
+  gap: 4px;
+  flex: none;
+}
+
+.topbar .tab {
+  padding: 8px 22px;
+  font-size: 14px;
+  color: #555;
+  background: #dfe3ea;
+  border-radius: 6px 6px 0 0;
+  cursor: pointer;
+  user-select: none;
+}
+
+.topbar .tab.active {
+  background: #fff;
+  color: #e6822a;
+  font-weight: 600;
+}
+
+.topbar-right {
+  margin-left: auto;
+  align-self: center;
+  padding-right: 12px;
+}
+
+.ver {
+  color: #b0b6bf;
+  font-size: 12px;
+  margin-right: 10px;
+}
+
+.user-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+  outline: none;
+}
+
+.page-body {
+  flex: 1;
+  overflow: hidden;
+  background: #fff;
+}
+
+/* ---------- 资产视图三栏 ---------- */
+.asset-view {
+  height: 100%;
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  box-sizing: border-box;
+  background: #f2f4f8;
+  overflow: auto;
+}
+
+.panel {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.tree-panel {
+  width: 236px;
+  flex: none;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.search-row {
+  display: flex;
+  gap: 0;
+}
+
+.search-row .el-input__wrapper {
+  border-radius: 4px 0 0 4px;
+}
+
+.tree-scroll {
+  flex: 1;
+  overflow: auto;
+}
+
+.tree-toolbar {
+  display: flex;
+}
+
+.tree-toolbar .el-button + .el-button {
+  margin-left: 8px;
+}
+
+.tree-node-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  width: 100%;
+  padding-right: 4px;
+}
+
+.tree-node-label .el-icon {
+  color: #e6822a;
+}
+
+.node-ops {
+  margin-left: auto;
+  display: none;
+  align-items: center;
+  gap: 6px;
+  color: #909399;
+}
+
+.el-tree-node__content:hover .node-ops {
+  display: inline-flex;
+}
+
+.node-ops .el-icon {
+  color: #909399;
+}
+
+.node-ops .el-icon:hover {
+  color: #409eff;
+}
+
+.tree-node-label > .el-icon:first-child {
+  flex: none;
+}
+
+.center-panel {
+  width: 348px;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.right-area {
+  flex: 1;
+  min-width: 560px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr 1.1fr;
+  gap: 10px;
+}
+
+.stat-card {
+  padding: 10px 14px;
+}
+
+.stat-card h3 {
+  margin: 0 0 2px;
+  font-size: 14px;
+  color: #333;
+}
+
+.chart-box {
+  width: 100%;
+  height: 210px;
+}
+
+/* ---------- 机柜可视化 ---------- */
+.rack-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px 8px;
+  flex: none;
+}
+
+.rack-head .name {
+  font-size: 17px;
+  font-weight: 600;
+  color: #333;
+}
+
+.rack-scroll {
+  flex: 1;
+  overflow: auto;
+  padding: 0 12px 12px;
+}
+
+.rack-body {
+  position: relative;
+  display: flex;
+  gap: 8px;
+}
+
+.rack-slots {
+  position: relative;
+  flex: 1;
+  border: 2px solid #d7dbe2;
+  border-radius: 4px;
+  background: #fafbfc;
+}
+
+.u-num-col {
+  width: 34px;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.u-num {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.u-num span {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #cfd4dc;
+  color: #fff;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.u-num.occupied span {
+  background: #409eff;
+}
+
+.device {
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #43484f 0%, #2c3138 100%);
+  cursor: pointer;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  box-sizing: border-box;
+}
+
+.device:hover {
+  border-color: #79bbff;
+}
+
+.device.selected {
+  border-color: #409eff;
+  box-shadow: 0 0 6px rgba(64, 158, 255, 0.8);
+}
+
+.device .face {
+  flex: 1;
+  height: 60%;
+  background-image: radial-gradient(circle, #1b1e22 1.5px, transparent 1.6px);
+  background-size: 12px 8px;
+  border-radius: 2px;
+  opacity: 0.85;
+}
+
+.device .label {
+  color: #cfd6de;
+  font-size: 11px;
+  margin-left: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ---------- 按资产类型区分的设备外观（左侧类型色条） ---------- */
+.device::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: #6b7280;
+}
+
+/* 服务器：硬盘位竖槽 + 右侧状态灯 */
+.device.t-server::before {
+  background: #409eff;
+}
+.device.t-server .face {
+  background-image:
+    radial-gradient(circle at 96% 30%, #52c41a 2px, transparent 2.6px),
+    radial-gradient(circle at 96% 70%, #faad14 2px, transparent 2.6px),
+    repeating-linear-gradient(90deg, #22262b 0 7px, #3d434b 7px 9px);
+  background-size: auto;
+  background-repeat: no-repeat, no-repeat, repeat;
+}
+
+/* 交换机：双排网络端口网格 */
+.device.t-switch::before {
+  background: #52c41a;
+}
+.device.t-switch .face {
+  background-image:
+    linear-gradient(180deg, transparent 0 46%, #14171a 46% 54%, transparent 54%),
+    repeating-linear-gradient(90deg, #171b1f 0 8px, #3d444c 8px 10px);
+  background-size: auto;
+  background-repeat: repeat;
+}
+
+/* 路由器：一排圆形端口 */
+.device.t-router::before {
+  background: #9254de;
+}
+.device.t-router .face {
+  background-image: radial-gradient(circle, #14171a 3px, #454c55 3.2px 4.5px, transparent 5px);
+  background-size: 20px 80%;
+  background-position: left center;
+  background-repeat: repeat-x;
+}
+
+/* 防火墙：红色砖墙 */
+.device.t-firewall::before {
+  background: #f5222d;
+}
+.device.t-firewall .face {
+  background-color: #55231f;
+  background-image:
+    repeating-linear-gradient(180deg, transparent 0 5px, #7c352c 5px 6.5px),
+    repeating-linear-gradient(90deg, transparent 0 16px, #7c352c 16px 17.5px);
+  background-size: auto;
+  background-repeat: repeat;
+}
+
+/* 存储：水平盘槽 */
+.device.t-storage::before {
+  background: #fa8c16;
+}
+.device.t-storage .face {
+  background-image: repeating-linear-gradient(180deg, #202429 0 4px, #3a4046 4px 6px);
+  background-size: auto;
+  background-repeat: repeat;
+}
+
+/* 其他：默认点阵面板（保持原样），色条为默认灰 */
+
+/* 悬浮资产信息 */
+.asset-pop {
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.18);
+  padding: 14px 18px;
+  width: 380px;
+  position: fixed;
+  z-index: 3000;
+  pointer-events: auto;
+}
+
+.asset-pop table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.asset-pop td {
+  padding: 7px 4px;
+  border-bottom: 1px solid #f0f2f5;
+  vertical-align: top;
+}
+
+.asset-pop td.k {
+  color: #8a919c;
+  width: 84px;
+  white-space: nowrap;
+}
+
+.asset-pop td.v {
+  color: #333;
+  word-break: break-all;
+}
+
+.asset-pop .ops {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+/* ---------- 首页 ---------- */
+.home {
+  padding: 20px;
+  overflow: auto;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.home-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.home-card {
+  padding: 18px;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.home-card .num {
+  font-size: 30px;
+  font-weight: 700;
+  color: #409eff;
+}
+
+.home-card .lbl {
+  color: #8a919c;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.u-tip {
+  font-size: 12px;
+  color: #a0a6af;
+  width: 100%;
+  line-height: 1.4;
+}

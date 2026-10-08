@@ -1,0 +1,10 @@
+backups/
+*.db
+dist/
+.env
+logs/
+node_modules/
+*.pyc
+__pycache__/
+/tmp/
+.venv/

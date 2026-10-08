@@ -1,0 +1,67 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: srvmgpro-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root123456
+      MYSQL_DATABASE: srvmgpro
+      MYSQL_USER: srvmgpro
+      MYSQL_PASSWORD: srvmgpro123
+      TZ: Asia/Shanghai
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot123456"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+
+  backend:
+    build: ./backend
+    container_name: srvmgpro-backend
+    restart: unless-stopped
+    environment:
+      DB_HOST: db
+      DB_PORT: "3306"
+      DB_USER: ${DB_USER:-srvmgpro}
+      DB_PASSWORD: ${DB_PASSWORD:-srvmgpro123}
+      DB_NAME: ${DB_NAME:-srvmgpro}
+      # 生产部署请在 .env 中设置固定的 SECRET_KEY，否则每次重启所有登录会话失效
+      SECRET_KEY: ${SECRET_KEY:-}
+      TOKEN_EXPIRE_HOURS: ${TOKEN_EXPIRE_HOURS:-12}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:8080,http://localhost:5173}
+      BACKUP_DIR: /app/backups
+      LOG_DIR: /app/logs
+      TZ: Asia/Shanghai
+    volumes:
+      - ./backups:/app/backups
+      - ./logs:/app/logs
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c",
+             "import urllib.request;urllib.request.urlopen('http://localhost:8000/api/health', timeout=3)"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 15s
+
+  frontend:
+    build: ./frontend
+    container_name: srvmgpro-frontend
+    restart: unless-stopped
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "8080:80"
+
+volumes:
+  db_data:
